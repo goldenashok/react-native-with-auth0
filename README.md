@@ -143,11 +143,36 @@
           "android": {
             "gradleCommand": ":app:assembleDebug"
           },
-          "ios": {
+          "ios": {  
             "buildConfiguration": "Debug"
           }
         },
         "production": {}
       },
-  ```
+  ````
+  
 12. Run the command to get API. this will automatically upload in the `expo.dev`.  ```eas build -p android --profile preview```
+13. add `Allow callback URL` blow
+    we must change YOUR_APP_PACKAGE_NAME, YOUR_AUTH0_DOMAIN and PRODUCT_BUNDLE_IDENTIFIER
+  ```
+    //For Andorid
+    {YOUR_APP_PACKAGE_NAME}://{YOUR_AUTH0_DOMAIN}/android/{YOUR_APP_PACKAGE_NAME}/callback
+    //For IOS
+    {PRODUCT_BUNDLE_IDENTIFIER}://{YOUR_AUTH0_DOMAIN}/ios/{PRODUCT_BUNDLE_IDENTIFIER}/callback
+  ```
+  PRODUCT_BUNDLE_IDENTIFIER -> which is we are given in to the android package name. example: com.smart.scalper.apps
+  YOUR_APP_PACKAGE_NAME -> which is we are given in the ios package name. example: com.smart.scalper.apps
+  YOUR_AUTH0_DOMAIN -> wihich we are added in to the auth0 application creation. exmaple : scalper.auth0.com
+ 14. Add `logout URL`
+  we must change YOUR_APP_PACKAGE_NAME, YOUR_AUTH0_DOMAIN and PRODUCT_BUNDLE_IDENTIFIER
+ ```
+  //IOS
+  {PRODUCT_BUNDLE_IDENTIFIER}://{YOUR_AUTH0_DOMAIN}/ios/{PRODUCT_BUNDLE_IDENTIFIER}/callback
+  //Andorid 
+  {YOUR_APP_PACKAGE_NAME}://{YOUR_AUTH0_DOMAIN}/android/{YOUR_APP_PACKAGE_NAME}/callback
+ ```
+  PRODUCT_BUNDLE_IDENTIFIER -> which is we are given in to the android package name in the app. example: com.smart.scalper.apps
+  YOUR_APP_PACKAGE_NAME -> which is we are given in the ios package name in the app. example: com.smart.scalper.apps
+  YOUR_AUTH0_DOMAIN -> wihich we are added in to the auth0 application creation.exaple : scalper.auth0.com
+  
+  
