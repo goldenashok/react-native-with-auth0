@@ -149,7 +149,7 @@
         },
         "production": {}
       },
-  ````
+  ```
   
 12. Run the command to get API. this will automatically upload in the `expo.dev`.  ```eas build -p android --profile preview```
 13. add `Allow callback URL` blow
