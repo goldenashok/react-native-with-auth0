@@ -121,7 +121,33 @@
     export default App;
   ```
 
-
-
-eas build -platform android by default create .aab file. this will used to upload in to the playstore
-eas build -p android --profile preview
+9.  ```eas build -platform android``` by default create .aab file. this will used to upload in to the playstore
+10. if you want to change `.apk` format we need to change `eas.json`
+    ```
+         "build": {
+        "preview": {
+          "android": {
+            "buildType": "apk"
+          }
+        },
+        "preview2": {
+          "android": {
+            "gradleCommand": ":app:assembleRelease"
+          }
+        },
+        "preview3": {
+          "developmentClient": true
+        },
+        "development": {
+          "distribution": "internal",
+          "android": {
+            "gradleCommand": ":app:assembleDebug"
+          },
+          "ios": {
+            "buildConfiguration": "Debug"
+          }
+        },
+        "production": {}
+      },
+  ```
+12. Run the command to get API. this will automatically upload in the `expo.dev`.  ```eas build -p android --profile preview```
