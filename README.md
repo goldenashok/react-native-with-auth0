@@ -5,10 +5,56 @@
 4. `cd <project name>` then give ```npm install``` for installing node packages
 5. Then install react-native auth0 ```npm i react-native-auth0```
 6. Then generate andord and ios prebuild for add details using ```expo prebuild```
-7. Add below line for Android `build.gradle` file
-
+7. Add below line for Android `build.gradle` file ```android/app/build.gradle```
+  ```
+      android {
+       defaultConfig {
+          // Add the next line
+          manifestPlaceholders = [auth0Domain: "YOUR_AUTH0_DOMAIN", auth0Scheme: "${applicationId}"]
+        }
+         ...
+      }
+  ```
+  The `auth0Domain` value must be replaced with your Auth0 domain value. So if you have samples.auth0.com as your Auth0 domain you would have a configuration like the following: whihc created from auth0 application
+  ```
+      android {
+        defaultConfig {
+            manifestPlaceholders = [auth0Domain: "samples.auth0.com", auth0Scheme: "${applicationId}"]
+        }
+        ...
+      }
+  ```
 8. add below line for the IOS
-
+  Inside the `ios` folder find the file `AppDelegate.[swift|m]` add the following to it:
+  ```
+      #import <React/RCTLinkingManager.h>
+      - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url
+                  options:(NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options
+      {
+        return [RCTLinkingManager application:app openURL:url options:options];
+      }
+  ```
+  Inside the ios folder open the ```Info.plist`` and locate the value for CFBundleIdentifier, e.g.
+  ```
+    <key>CFBundleIdentifier</key>
+    <string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+  ```
+  and then below it register a URL type entry using the value of `CFBundleIdentifier` as the value for `CFBundleURLSchemes:`
+  ```
+    <key>CFBundleURLTypes</key>
+      <array>
+          <dict>
+              <key>CFBundleTypeRole</key>
+              <string>None</string>
+              <key>CFBundleURLName</key>
+              <string>auth0</string>
+              <key>CFBundleURLSchemes</key>
+              <array>
+                  <string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+              </array>
+          </dict>
+      </array>
+  ```
 9. Add blow line for React native
   ```
     import React from 'react';
